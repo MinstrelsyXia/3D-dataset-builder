@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GLB Model Viewer</title>
+
+    <link rel="stylesheet" href="../static/css/styles.css">
+    <!-- Loads javascript functions -->
+    <script type="text/javascript" src="../static/js/hotspotHider.js"></script>
+    <script type="text/javascript" src="../static/js/selection.js"></script>
+    <script type="text/javascript" src="../static/js/hotspotAdd.js"></script>
+    <script type="text/javascript" src="../static/js/neutralLight.js"></script>
+    <script type="text/javascript" src="../static/js/autorotate.js"></script>
+    <script type="text/javascript" src="../static/js/panning.js"></script>
+    <script type="text/javascript" src="../static/js/dimensions.js" defer></script>
+    <script type="text/javascript" src="../static/js/dimensionHider.js"></script>
+    <script type="text/javascript" src="../static/js/transform.js"></script>
+    <script type="text/javascript" src="../static/js/setCamera.js"></script>
+    <script type="text/javascript" src="../static/js/setCameraControls.js"></script>
+    <script type="text/javascript" src="../static/js/setShadow.js"></script>
+    <script type="text/javascript" src="../static/js/setZoom.js"></script>
+    <script type="text/javascript" src="../static/js/interactionPrompt.js"></script>
+    <script type="text/javascript" src="../static/js/createSnippet.js"></script>
+    <script type="text/javascript" src="../static/js/modal.js"></script>
+
+    <!-- Loads javascript icons for sidepanel -->
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+
+    <!-- 3d model viewer links -->
+    <!-- Loads <model-viewer> for modern browsers: -->
+    <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.js"></script>
+
+    <!-- Loads <model-viewer> for old browsers like IE11: -->
+    <script nomodule src="https://unpkg.com/@google/model-viewer/dist/model-viewer-legacy.js"></script>
+
+    <!-- The following libraries and polyfills are recommended to maximize browser support -->
+    <!-- NOTE: you must adjust the paths as appropriate for your project -->
+
+    <!-- REQUIRED: Web Components polyfill to support Edge and Firefox < 63 -->
+    <script src="https://unpkg.com/@webcomponents/webcomponentsjs@2.1.3/webcomponents-loader.js"></script>
+
+    <!-- OPTIONAL: Intersection Observer polyfill for better performance in Safari and IE11 -->
+    <script src="https://unpkg.com/intersection-observer@0.5.1/intersection-observer.js"></script>
+
+    <!-- OPTIONAL: Resize Observer polyfill improves resize behavior in non-Chrome browsers -->
+    <script src="https://unpkg.com/resize-observer-polyfill@1.5.1/dist/ResizeObserver.js"></script>
+
+    <!-- OPTIONAL: Fullscreen polyfill is required for experimental AR features in Canary -->
+    <!--<script src="https://unpkg.com/fullscreen-polyfill@1.0.2/dist/fullscreen.polyfill.js"></script>-->
+
+    <!-- OPTIONAL: Include prismatic.js for Magic Leap support -->
+    <!--<script src="https://unpkg.com/@magicleap/prismatic@0.18.2/prismatic.min.js"></script>-->
+
+</head>
+
+<body>
+    <h1>下面的图形是文玩吗？你可以拖动鼠标多角度检查</h1>
+    <div id="description"></div> <!-- 添加描述显示区域 -->
+    <div id="displayblocks" class="main" style = "display: inline;">
+        <model-viewer ondblclick="hotspotAdd()" onclick="selection()" id="modelblock" src="" ar camera-controls
+            background-color="#254441" shadow-intensity="0" alt="A 3D model of a test cube"
+            min-camera-orbit="Infinity 0deg auto" max-camera-orbit="Infinity 180deg auto" min-field-of-view="0"
+            max-field-of-view="180" interaction-prompt="none" bounds="tight" default-progress-bar
+            style="width: 250px; height: 250px;">
+        </model-viewer>
+    </div>
+    <!-- 按钮 -->
+    <div class="buttons">
+        <button id="yes-button" data-option="yes">是</button>
+        <button id="no-button" data-option="no">不是</button>
+        <button id="unclear-button" data-option="unclear">不清楚</button>
+    </div>
+
+    <script src="../static/js/script.js"></script>
+    <script>
+        // 页面加载时获取第一个模型
+        fetch('/next-model')
+            .then(response => response.json())
+            .then(data => {
+                if (data.src) {
+                    document.getElementById('modelblock').src = data.src;
+                    document.getElementById('description').textContent = data.description;
+                } else {
+                    console.error('Error fetching initial model:', data.error);
+                }
+            })
+            .catch(error => console.error('Error fetching initial model:', error));
+    </script>
+</body>
+</html>
