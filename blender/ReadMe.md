@@ -36,8 +36,8 @@ blenderproc run render_final.py
 ```
 注意修改`render_final/main`函数中 `filename`, `model_dir`, `save_dir` 的路径。
 
-`render_12345.py`:
-1. 基于 one-2345官方代码，增加了depth输出。`depth_{idx}` 以m为单位。
+`launch_render_eval.py`, `single_render_eval.py`:
+1. 基于[one-2-3-45](https://github.com/One-2-3-45/One-2-3-45/tree/master/render)官方代码，增加了depth输出。`depth_{idx}` 以m为单位。
 2. `launch_render_eval.py`是blenderproc的环境运行程序，其调用渲染主程序`single_render_eval.py`
 3. **运行方式**：
    ```shell
