@@ -11,7 +11,7 @@ json_path = r"D:\store\ToBeCleaned\cjy\existing_models.jsonl"  # 包含模型信
 cleaned_json_path = r"D:\store\ToBeCleaned\cjy\cjy_cleaned_models.json"  # 清洗后的json文件保存路径
 deleted_models_path = r"D:\store\ToBeCleaned\cjy\deleted_models"  # 被删除模型的保存路径
 deleted_json_path = r"D:\store\ToBeCleaned\cjy\cjy_deleted_models.json"  # 被删除模型信息的 JSON 文件路径
-openai.api_key = "sk-fTYanC4HhsI1rXeFe5uH3nZfYvITQFziyogfNsTthufRuGMe" #你的api-key
+openai.api_key = "**" #你的api-key
 openai.api_base = "https://api.chatanywhere.com.cn/v1" #不用改
 
 
@@ -86,11 +86,6 @@ def append_to_json(valid_model_entry):
             print(f"File {cleaned_json_path} does not exist.")
     except Exception as e:
         print(f"Error appending to JSON file: {e}")
-
-# 使用 GPT API 筛选模型
-# openai.api_key = "sk-fTYanC4HhsI1rXeFe5uH3nZfYvITQFziyogfNsTthufRuGMe"
-# openai.api_base = "https://api.chatanywhere.com.cn/v1"
-# 定义分类函数，每次处理 5 个模型
 
 def categorize_relics(descriptions, object_names):
     batch_request = ""
